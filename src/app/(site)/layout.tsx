@@ -1,0 +1,30 @@
+import type { ReactNode } from "react";
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
+import { siteConfig } from "@/lib/constants";
+import { getSiteSettings } from "@/sanity/queries/settings";
+
+export default async function SiteLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const settings = await getSiteSettings();
+
+  return (
+    <>
+      <Header
+        siteTitle={settings.siteTitle ?? siteConfig.name}
+        navigation={settings.navigation ?? []}
+        navigationLabel={settings.ui?.primaryNavigationLabel}
+        mobileLabels={{
+          open: settings.ui?.openNavigationLabel ?? "Open navigation",
+          close: settings.ui?.closeNavigationLabel ?? "Close navigation",
+          menu: settings.ui?.menuLabel ?? "Menu"
+        }}
+      />
+      <main id="main">{children}</main>
+      <Footer
+        columns={settings.footerColumns ?? []}
+        copyright={settings.footerCopyright ?? settings.siteTitle ?? siteConfig.name}
+        navigationLabel={settings.ui?.footerNavigationLabel}
+      />
+    </>
+  );
+}

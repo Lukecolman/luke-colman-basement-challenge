@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-background: 250 250 248;
+  --color-surface: 255 255 255;
+  --color-foreground: 25 25 25;
+  --color-muted: 102 102 96;
+  --color-accent: 255 77 0;
+  --color-border: 220 219 214;
+  --color-basement-light-grey: 230 230 230;
+  --color-basement-medium-grey: 196 196 196;
+  --color-basement-dark-grey: 46 46 46;
+  --color-basement-orange: 255 77 0;
+  --color-basement-grey: 102 102 102;
+  --radius-ui: 8px;
+  --container-width: 1180px;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --duration-fast: 160ms;
+  --duration-base: 240ms;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #000;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  min-height: 100vh;
+  color: rgb(var(--color-foreground));
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--color-accent));
+  outline-offset: 3px;
+}
+
+.featured-article {
+  border: 1px solid rgb(255 255 255 / 0.28);
+  background: rgb(58 58 58 / 0.25);
+  box-shadow: 0 24px 60px rgb(0 0 0 / 0.2), inset 0 1px rgb(255 255 255 / 0.08);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+@media (min-width: 780px) {
+  .featured-article {
+    max-width: 902px;
+    grid-template-columns: minmax(0, 1.45fr) minmax(325px, 1fr);
+    gap: 48px;
+    min-height: 394px;
+  }
+
+  .featured-article__media,
+  .featured-article__content {
+    min-height: 360px;
+  }
+
+  .featured-article__media {
+    aspect-ratio: auto;
+  }
+
+}
