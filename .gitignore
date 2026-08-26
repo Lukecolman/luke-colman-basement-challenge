@@ -8,3 +8,7 @@ out
 .DS_Store
 coverage
 *.tsbuildinfo
+*_SPEC.md
+docs/
+AGENTS.md
+SANITY_SETUP.md
