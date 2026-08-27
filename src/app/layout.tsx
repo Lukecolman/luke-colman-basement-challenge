@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { siteConfig } from "@/lib/constants";
 import { getSiteSettings } from "@/sanity/queries/settings";
+import { ConsoleBanner } from "@/components/layout/console-banner";
 import "@/styles/globals.css";
 
 const geist = Geist({
@@ -16,6 +17,13 @@ const geistMono = Geist_Mono({
   display: "swap",
   variable: "--font-mono"
 });
+
+const defaultOgImage = {
+  url: "/images/OG.webp",
+  width: 1200,
+  height: 630,
+  alt: "basement."
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
@@ -34,12 +42,14 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       url: siteConfig.url,
       siteName: settings.siteTitle || title,
-      type: "website"
+      type: "website",
+      images: [defaultOgImage]
     },
     twitter: {
       card: "summary_large_image",
       title,
-      description
+      description,
+      images: [defaultOgImage.url]
     }
   };
 }
@@ -48,6 +58,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
       <body className="font-sans antialiased">
+        <ConsoleBanner />
         {children}
       </body>
     </html>
