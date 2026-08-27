@@ -57,7 +57,20 @@ export type SiteSettings = {
   footerRightsReservedText?: string;
 };
 
-export const defaultSiteSettings: Required<Pick<SiteSettings, "siteTitle" | "siteDescription" | "postPage" | "ui" | "navigation" | "footerColumns" | "footerCopyright">> = {
+export const defaultSiteSettings: Required<
+  Pick<
+    SiteSettings,
+    | "siteTitle"
+    | "siteDescription"
+    | "postPage"
+    | "ui"
+    | "navigation"
+    | "footerColumns"
+    | "footerCopyright"
+    | "footerMembershipText"
+    | "footerRightsReservedText"
+  >
+> = {
   siteTitle: "basement.",
   siteDescription: "Research, insights, and the science behind building brands & websites.",
   postPage: {
