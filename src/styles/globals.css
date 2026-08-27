@@ -27,6 +27,7 @@
 
 html {
   background: #000;
+  overflow-x: clip;
   scroll-behavior: smooth;
 }
 
@@ -47,7 +48,50 @@ html {
 
 body {
   min-height: 100vh;
+  overflow-x: clip;
   color: rgb(var(--color-foreground));
+}
+
+/*
+ * Keep the server-rendered article in its animation's initial state. Without
+ * this, the browser paints the visible HTML once before GSAP hydrates and
+ * hides it, causing a flash on a hard refresh.
+ */
+.post-article-animations [data-post-title],
+.post-article-animations [data-post-intro],
+.post-article-animations [data-post-meta],
+.post-article-animations [data-post-image] {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.post-article-animations [data-post-back] {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.post-article-animations [data-post-line] {
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.post-article-animations [data-post-body] > div > * {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-article-animations [data-post-back],
+  .post-article-animations [data-post-title],
+  .post-article-animations [data-post-intro],
+  .post-article-animations [data-post-meta],
+  .post-article-animations [data-post-image],
+  .post-article-animations [data-post-line],
+  .post-article-animations [data-post-body] > div > * {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 :focus-visible {
