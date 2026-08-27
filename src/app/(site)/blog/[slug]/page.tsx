@@ -28,15 +28,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!post) return {};
 
+  const title = post.seo?.title?.trim() || post.title;
+  const description = post.seo?.description?.trim() || post.excerpt;
+  const socialImage = urlForImage(post.seo?.image)?.width(1200).height(630).auto("format").url() || "/images/OG.webp";
+
   return {
-    title: post.title,
-    description: post.excerpt,
+    title,
+    description,
     alternates: {
       canonical: `/blog/${slug}`
     },
     openGraph: {
-      title: post.title,
-      description: post.excerpt
+      title,
+      description,
+      type: "article",
+      images: [{ url: socialImage, width: 1200, height: 630 }]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [socialImage]
     }
   };
 }
