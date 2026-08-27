@@ -211,7 +211,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         links[] { label, href, openInNewTab }
       },
       footerCopyright,
-      footerMembershipText,
+      footerMembershipText
       }`,
       tags: ["site-settings"]
     });
