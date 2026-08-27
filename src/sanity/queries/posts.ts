@@ -14,6 +14,11 @@ const postSummaryFields = `
     "slug": slug.current,
     description
   },
+  "categories": categories[]->{
+    title,
+    "slug": slug.current,
+    description
+  },
   "author": author->{
     name,
     "slug": slug.current
@@ -61,15 +66,11 @@ export async function getPostBySlug(slug: string) {
   return sanityFetch<Post>({
     query: `*[_type == "post" && slug.current == $slug][0] {
       ${postSummaryFields},
+      intro,
       updatedAt,
       body,
       tags,
-      seo,
-      "categories": categories[]->{
-        title,
-        "slug": slug.current,
-        description
-      }
+      seo
     }`,
     params: { slug },
     tags: ["post"]

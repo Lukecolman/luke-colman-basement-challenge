@@ -36,13 +36,14 @@ export type PostSummary = {
   featured?: boolean;
   featuredImage?: SanityImage;
   category?: Category;
+  categories?: Category[];
   author?: Pick<Author, "name" | "slug">;
 };
 
 export type Post = PostSummary & {
+  intro?: PortableTextBlock[];
   updatedAt?: string;
   body?: PortableTextBlock[];
-  categories?: Category[];
   tags?: string[];
   seo?: {
     title?: string;

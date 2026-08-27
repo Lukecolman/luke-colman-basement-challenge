@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { portableText, seoFields } from "./objects";
+import { introPortableText, portableText, seoFields } from "./objects";
 
 export const post = defineType({
   name: "post",
@@ -15,6 +15,7 @@ export const post = defineType({
       validation: (rule) => rule.required()
     }),
     defineField({ name: "excerpt", title: "Excerpt", type: "text", rows: 3, validation: (rule) => rule.required().max(180) }),
+    introPortableText,
     defineField({
       name: "featuredImage",
       title: "Featured image",
