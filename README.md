@@ -1,61 +1,93 @@
-# Basement Frontend Challenge
+# Lucas Colman x Basement - Frontend Challenge
 
-Production-oriented blog foundation for the Basement frontend challenge. This phase sets up the local project base only; Figma implementation, GitHub, Vercel, and reviewer access are intentionally deferred.
+Responsive blog built with Next.js, TypeScript, Tailwind CSS, Motion, GSAP, and Sanity.
 
-## Tech stack
+![Challenge 2026](public/images/OG.webp)
 
-- Next.js App Router
-- React
-- TypeScript
-- Tailwind CSS
-- Motion
-- Sanity
+## How to run
 
-## Implemented foundation
+```bash
+pnpm install
+pnpm dev
+```
 
-- Strict TypeScript project setup
-- Tailwind design-token base
-- App Router routes for home, blog, blog detail, category, Studio, sitemap, and robots
-- Reusable layout and UI primitives
-- Accessible header, skip link, and keyboard-friendly mobile navigation
-- Centralized Sanity client, image helper, and GROQ queries
-- Sanity schemas for posts, categories, authors, site settings, SEO, and Portable Text
-- Empty states when Sanity is not configured
+Create `.env.local` from `.env.example` and configure the Sanity project values and the local site URL.
+
+Production URL: [luke-colman-basement-challenge.vercel.app](https://luke-colman-basement-challenge.vercel.app)
+
+## Verification
+
+```bash
+pnpm install --frozen-lockfile
+pnpm lint
+pnpm typecheck
+pnpm run build
+```
+
+The project was validated through linting, type checking, production builds, manual keyboard navigation, and Lighthouse audits.
+
+## Implemented features
+
+- Responsive blog layout.
+- Article listing, detail pages, categories, and filtering.
+- Editable posts, categories, authors, labels, SEO, logo, and social image through Sanity.
+- Global and post-specific metadata, sitemap, robots, and optimized images.
+- Sanity Studio available at `/studio`.
+- Keyboard-accessible navigation, skip link, focus states, mobile menu, focus trap, and Escape handling.
+- Motion- and GSAP-based interactions that respect the user's reduced-motion preference.
+- Local fallbacks for essential settings when Sanity is unavailable.
+
+### Sanity content architecture
+
+```text
+Sanity
+├── Posts          content, Portable Text, images, categories, SEO
+├── Categories     titles, slugs, descriptions
+├── Authors        names and profile information
+└── Site settings  navigation, labels, SEO, logo, social image, footer
+```
 
 ## Technical decisions
 
-- Server Components are the default for routes and content rendering.
-- Client Components are limited to mobile navigation, icon buttons, embedded Studio, and Motion helpers.
-- Sanity access is centralized in `src/sanity` so UI components do not contain GROQ.
-- The app can render without Sanity environment variables, which keeps local setup usable before CMS provisioning.
+- Server Components by default; Client Components are limited to interactive behavior.
+- Tailwind CSS is used for styling and shared design tokens.
+- Motion and GSAP are used for subtle interactions, with animation logic isolated in dedicated components.
+- Sanity data access, content schemas, and image helpers are centralized in `src/sanity`.
+- Reusable UI, layout, blog, and motion components keep the interface modular.
+- Sanity data uses Next.js server-side caching with a 60-second revalidation window.
+- The local social image is stored as WebP to keep its file size low. Content images are requested from Sanity at the size needed by each component and rendered with `next/image`.
 
-## Trade-offs
+### Folder structure
 
-- The current visual layer is structural only. Figma fidelity and final art direction are reserved for the design implementation phase.
-- Category filtering exists as route groundwork, not the final animated query-param filter experience.
-- Draft preview mode and Sanity webhooks are not implemented yet.
-
-## Local setup
-
-```bash
-npm install
-npm run dev
+```text
+src/
+├── app/         routes, layouts, metadata, sitemap, and robots
+├── components/  reusable UI, layout, blog, and motion components
+├── sanity/      client, GROQ queries, schemas, and image helpers
+├── types/       shared post, category, author, and image types
+└── styles/      global styles and design tokens
+public/          local fallback assets
 ```
 
-Create `.env.local` from `.env.example` and fill in the Sanity values:
+## Trade-offs and caveats
 
-```bash
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
-NEXT_PUBLIC_SANITY_PROJECT_ID=your-project-id
-NEXT_PUBLIC_SANITY_DATASET=production
-SANITY_API_VERSION=2025-01-01
-SANITY_API_TOKEN=
-```
+- Essential settings have local fallbacks so a Sanity issue does not break technical pages.
+- Content can remain cached for up to 60 seconds before a new Sanity response is fetched; in the future, a secure Sanity webhook could be integrated to invalidate the cache on demand when content is published.
+- During the initial Vercel setup, the pnpm lockfile required a small correction before the production build could run successfully.
 
-## Quality checks
+## Lighthouse audit
 
-```bash
-npm run lint
-npm run typecheck
-npm run build
-```
+Audited in an incognito window without browser extensions against the production site.
+
+| Page | Performance | Accessibility | Best Practices | SEO |
+| --- | ---: | ---: | ---: | ---: |
+| Blog | 100 | 100 | 100 | 92 |
+| Article | 99 | 98 | 100 | 92 |
+
+### Blog
+
+![Lighthouse audit for the blog](public/assets/lighthouse/lighthouse-blog.png)
+
+### Article
+
+![Lighthouse audit for an article](public/assets/lighthouse/lighthouse-article.png)
