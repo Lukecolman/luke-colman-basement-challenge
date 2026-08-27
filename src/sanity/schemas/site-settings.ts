@@ -83,8 +83,7 @@ export const siteSettings = defineType({
       }
     ],
     footerCopyright: "© BASEMENT.STUDIO LLC 2026. ALL RIGHTS RESERVED.",
-    footerMembershipText: "PROUD MEMBER OF SODA",
-    footerRightsReservedText: "ALL RIGHTS RESERVED."
+    footerMembershipText: "PROUD MEMBER OF SODA"
   },
   fields: [
     defineField({ name: "siteTitle", title: "Site title", type: "string", validation: (rule) => rule.required() }),
@@ -187,7 +186,6 @@ export const siteSettings = defineType({
     }),
     defineField({ name: "footerCopyright", title: "Footer copyright", type: "string", validation: (rule) => rule.max(140) }),
     defineField({ name: "footerMembershipText", title: "Footer membership text", type: "string", validation: (rule) => rule.max(100) }),
-    defineField({ name: "footerRightsReservedText", title: "Footer rights reserved text", type: "string", validation: (rule) => rule.max(60) }),
     seoFields
   ],
   preview: {

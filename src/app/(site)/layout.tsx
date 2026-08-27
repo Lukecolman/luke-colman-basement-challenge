@@ -29,7 +29,6 @@ export default async function SiteLayout({ children }: Readonly<{ children: Reac
         columns={settings.footerColumns ?? []}
         copyright={settings.footerCopyright ?? settings.siteTitle ?? siteConfig.name}
         membershipText={settings.footerMembershipText}
-        rightsReservedText={settings.footerRightsReservedText}
         navigationLabel={settings.ui?.footerNavigationLabel}
       />
     </>

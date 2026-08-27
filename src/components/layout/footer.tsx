@@ -14,12 +14,10 @@ type FooterProps = {
   columns: FooterColumn[];
   copyright: string;
   membershipText?: string;
-  rightsReservedText?: string;
   navigationLabel?: string;
 };
 
-export function Footer({ columns, copyright, membershipText = "", rightsReservedText = "", navigationLabel = "Footer" }: FooterProps) {
-  const mobileCopyright = copyright.replace(rightsReservedText, "").trim();
+export function Footer({ columns, copyright, membershipText = "", navigationLabel = "Footer" }: FooterProps) {
   const pathname = usePathname();
   const footerRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
@@ -43,9 +41,7 @@ export function Footer({ columns, copyright, membershipText = "", rightsReserved
           <div className="mt-3 flex items-end justify-between gap-4 font-mono text-[12px] uppercase leading-[1.15] tracking-[-0.01em] text-basement-grey md:text-geist-mono-14 md:leading-[1.1]">
             <p className="max-w-[15rem] text-[9px] md:max-w-none md:text-geist-mono-14">
               <span className="md:hidden">
-                {mobileCopyright}
-                <br />
-                {rightsReservedText}
+                {copyright}
               </span>
               <span className="hidden md:inline">{copyright}</span>
             </p>

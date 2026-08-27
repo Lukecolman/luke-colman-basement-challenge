@@ -55,7 +55,6 @@ export type SiteSettings = {
   footerColumns?: FooterColumn[];
   footerCopyright?: string;
   footerMembershipText?: string;
-  footerRightsReservedText?: string;
 };
 
 export const defaultSiteSettings: Required<
@@ -69,7 +68,6 @@ export const defaultSiteSettings: Required<
     | "footerColumns"
     | "footerCopyright"
     | "footerMembershipText"
-    | "footerRightsReservedText"
   >
 > = {
   siteTitle: "basement.",
@@ -144,7 +142,6 @@ export const defaultSiteSettings: Required<
   ],
   footerCopyright: "© BASEMENT.STUDIO LLC 2026. ALL RIGHTS RESERVED.",
   footerMembershipText: "PROUD MEMBER OF SODA",
-  footerRightsReservedText: "ALL RIGHTS RESERVED."
 };
 
 function cleanLink(link?: SiteLink | null): SiteLink | null {
@@ -215,7 +212,6 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       },
       footerCopyright,
       footerMembershipText,
-      footerRightsReservedText
       }`,
       tags: ["site-settings"]
     });
@@ -279,6 +275,5 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     footerColumns: footerColumns.length > 0 ? footerColumns : defaultSiteSettings.footerColumns,
     footerCopyright: settings?.footerCopyright?.trim() || defaultSiteSettings.footerCopyright,
     footerMembershipText: settings?.footerMembershipText?.trim() || defaultSiteSettings.footerMembershipText,
-    footerRightsReservedText: settings?.footerRightsReservedText?.trim() || defaultSiteSettings.footerRightsReservedText
   };
 }
