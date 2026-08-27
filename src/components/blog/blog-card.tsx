@@ -77,7 +77,7 @@ export function BlogCard({
       observer?.disconnect();
       context.revert();
     };
-  }, []);
+  }, [animationDelay]);
 
   return (
     <article

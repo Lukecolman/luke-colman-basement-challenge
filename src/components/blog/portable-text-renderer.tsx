@@ -48,7 +48,7 @@ function createComponents(tone: NonNullable<PortableTextRendererProps["tone"]>):
       )
     },
     block: {
-      normal: ({ children, value }) => (
+      normal: ({ children }) => (
         <p className="m-0 mb-6 whitespace-pre-line last:mb-0">{children}</p>
       ),
       h2: ({ children }) => (
