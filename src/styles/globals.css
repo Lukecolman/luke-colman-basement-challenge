@@ -28,6 +28,7 @@
 html {
   background: #000;
   overflow-x: clip;
+  position: relative;
   scroll-behavior: smooth;
 }
 
