@@ -28,7 +28,7 @@ export function FeaturedArticle({ post, ctaLabel = "READ FULL BLOG POST", dateFa
   const cardScale = useTransform(scrollYProgress, [0, 0.42, 1], [0.8, 1, 0.97]);
 
   return (
-    <div ref={cardRef}>
+    <div ref={cardRef} className="relative">
       <motion.div
         initial={reduceMotion ? false : { y: "100vh", opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
