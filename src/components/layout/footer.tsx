@@ -13,14 +13,13 @@ import type { MotionValue } from "motion/react";
 type FooterProps = {
   columns: FooterColumn[];
   copyright: string;
+  membershipText?: string;
+  rightsReservedText?: string;
   navigationLabel?: string;
 };
 
-const FOOTER_MEMBERSHIP_TEXT = "PROUD MEMBER OF SODA";
-const RIGHTS_RESERVED_TEXT = "ALL RIGHTS RESERVED.";
-
-export function Footer({ columns, copyright, navigationLabel = "Footer" }: FooterProps) {
-  const mobileCopyright = copyright.replace(RIGHTS_RESERVED_TEXT, "").trim();
+export function Footer({ columns, copyright, membershipText = "", rightsReservedText = "", navigationLabel = "Footer" }: FooterProps) {
+  const mobileCopyright = copyright.replace(rightsReservedText, "").trim();
   const pathname = usePathname();
   const footerRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
@@ -46,12 +45,12 @@ export function Footer({ columns, copyright, navigationLabel = "Footer" }: Foote
               <span className="md:hidden">
                 {mobileCopyright}
                 <br />
-                {RIGHTS_RESERVED_TEXT}
+                {rightsReservedText}
               </span>
               <span className="hidden md:inline">{copyright}</span>
             </p>
             <div className="flex items-center gap-2 text-right md:gap-4">
-              <p className="text-[9px] md:text-geist-mono-14">{FOOTER_MEMBERSHIP_TEXT}</p>
+              <p className="text-[9px] md:text-geist-mono-14">{membershipText}</p>
               <Image src="/assets/logo-soda.svg" alt="" width={11} height={13} className="h-[13px] w-auto shrink-0 md:h-6 md:w-[20.73px]" />
             </div>
           </div>

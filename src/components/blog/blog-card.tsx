@@ -23,8 +23,8 @@ type BlogCardProps = {
 export function BlogCard({
   post,
   priority = false,
-  ctaLabel = "READ MORE",
-  dateFallback = "Basement",
+  ctaLabel = "",
+  dateFallback = "",
   showImage = true,
   tone = "light",
   className,

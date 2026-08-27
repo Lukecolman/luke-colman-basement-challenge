@@ -48,7 +48,13 @@ export default async function CategoryPage({ params }: PageProps) {
           <SectionHeader title={category.title} />
           <PostFilters categories={categories} settings={settings} activeCategorySlug={category.slug} />
         </div>
-        <PostGrid posts={posts} />
+        <PostGrid
+          posts={posts}
+          ctaLabel={settings.postPage?.cardCtaLabel}
+          emptyStateTitle={settings.postPage?.emptyStateTitle}
+          emptyStateDescription={settings.postPage?.emptyStateDescription}
+          dateFallback={settings.postPage?.dateFallback}
+        />
       </Container>
     </Section>
   );

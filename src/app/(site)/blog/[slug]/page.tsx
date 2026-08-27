@@ -88,7 +88,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
                   />
                 </svg>
               </span>
-              <span>GO BACK</span>
+              <span>{settings.ui?.backToPostsLabel}</span>
             </Link>
           </div>
 
@@ -115,7 +115,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
                   ) : null}
                 </div>
                 {post.categories?.length ? (
-                  <ul className="order-first flex flex-wrap gap-1 sm:order-none" aria-label="Article categories">
+                  <ul className="order-first flex flex-wrap gap-1 sm:order-none" aria-label={settings.ui?.articleCategoriesLabel}>
                     {post.categories.map((category) => (
                       <li key={category.slug} className="flex">
                         <span
@@ -153,14 +153,14 @@ export default async function BlogDetailPage({ params }: PageProps) {
             <nav className="mx-auto mt-20 flex max-w-[904px] items-center justify-between gap-6 md:mt-28" aria-label="Article navigation">
               {previousPost ? (
                 <Link href={`/blog/${previousPost.slug}`} className="group flex min-w-0 max-w-[48%] items-center gap-3 text-basement-light-grey">
-                  <span className="shrink-0 rounded-[4px] bg-basement-grey px-2 py-1 font-mono text-geist-mono-14 font-normal uppercase transition-colors group-hover:bg-basement-orange group-hover:text-black">Previous</span>
+                  <span className="shrink-0 rounded-[4px] bg-basement-grey px-2 py-1 font-mono text-geist-mono-14 font-normal uppercase transition-colors group-hover:bg-basement-orange group-hover:text-black">{settings.ui?.previousArticleLabel}</span>
                   <span className="hidden truncate font-mono text-geist-mono-14 font-normal uppercase text-basement-light-grey group-hover:text-basement-orange md:block">{previousPost.title}</span>
                 </Link>
               ) : null}
               {nextPost ? (
                 <Link href={`/blog/${nextPost.slug}`} className="group ml-auto flex min-w-0 max-w-[48%] items-center justify-end gap-3 text-right text-basement-light-grey">
                   <span className="hidden truncate font-mono text-geist-mono-14 font-normal uppercase text-basement-light-grey group-hover:text-basement-orange md:block">{nextPost.title}</span>
-                  <span className="shrink-0 rounded-[4px] bg-basement-grey px-2 py-1 font-mono text-geist-mono-14 font-normal uppercase transition-colors group-hover:bg-basement-orange group-hover:text-black">Next</span>
+                  <span className="shrink-0 rounded-[4px] bg-basement-grey px-2 py-1 font-mono text-geist-mono-14 font-normal uppercase transition-colors group-hover:bg-basement-orange group-hover:text-black">{settings.ui?.nextArticleLabel}</span>
                 </Link>
               ) : null}
             </nav>
@@ -173,13 +173,15 @@ export default async function BlogDetailPage({ params }: PageProps) {
           <Container>
             <div className="md:hidden">
               <h2 className="text-geist-38 font-semibold leading-[0.95] text-basement-light-grey">
-                Related Posts
+                {settings.ui?.relatedPostsTitle}
               </h2>
               <div className="mt-10 flex flex-col items-center gap-6">
                 {fallbackRelatedPosts.slice(0, 3).map((relatedPost, index) => (
                   <BlogCard
                     key={relatedPost._id}
                     post={relatedPost}
+                    ctaLabel={settings.postPage?.cardCtaLabel}
+                    dateFallback={settings.postPage?.dateFallback}
                     priority={index === 0}
                     tone="dark"
                     className="h-[430px] max-h-none w-full max-w-[400px]"
@@ -192,7 +194,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
             <div className="hidden md:grid md:grid-cols-[180px_minmax(0,1fr)] md:items-start md:gap-12">
               <div className="pt-1">
                 <h2 className="max-w-[150px] text-geist-38 font-semibold leading-[0.95] text-basement-light-grey">
-                  Related Posts
+                  {settings.ui?.relatedPostsTitle}
                 </h2>
               </div>
 
@@ -201,6 +203,8 @@ export default async function BlogDetailPage({ params }: PageProps) {
                   <BlogCard
                     key={relatedPost._id}
                     post={relatedPost}
+                    ctaLabel={settings.postPage?.cardCtaLabel}
+                    dateFallback={settings.postPage?.dateFallback}
                     priority={index === 0}
                     tone="dark"
                     className="h-[430px] max-h-none w-full max-w-[352px] shrink-0"

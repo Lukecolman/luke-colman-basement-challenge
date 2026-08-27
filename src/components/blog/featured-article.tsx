@@ -14,7 +14,7 @@ type FeaturedArticleProps = {
   dateFallback?: string;
 };
 
-export function FeaturedArticle({ post, ctaLabel = "READ FULL BLOG POST", dateFallback = "Basement" }: FeaturedArticleProps) {
+export function FeaturedArticle({ post, ctaLabel = "", dateFallback = "" }: FeaturedArticleProps) {
   const imageUrl = urlForImage(post.featuredImage)?.width(1200).auto("format").url();
   const postHref = `/blog/${post.slug}`;
   const postCategories = post.categories?.length ? post.categories : post.category ? [post.category] : [];

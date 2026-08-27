@@ -21,6 +21,7 @@ export type SiteSettings = {
   };
   postPage?: {
     heroTitle?: string;
+    featuredCtaLabel?: string;
     postsHeading?: string;
     filtersLabel?: string;
     cardCtaLabel?: string;
@@ -37,6 +38,11 @@ export type SiteSettings = {
     primaryNavigationLabel?: string;
     footerNavigationLabel?: string;
     postCategoriesLabel?: string;
+    articleCategoriesLabel?: string;
+    previousArticleLabel?: string;
+    nextArticleLabel?: string;
+    relatedPostsTitle?: string;
+    loadMoreLabel?: string;
     pageNotFoundTitle?: string;
     pageNotFoundDescription?: string;
     backToPostsLabel?: string;
@@ -44,6 +50,8 @@ export type SiteSettings = {
   navigation?: SiteLink[];
   footerColumns?: FooterColumn[];
   footerCopyright?: string;
+  footerMembershipText?: string;
+  footerRightsReservedText?: string;
 };
 
 export const defaultSiteSettings: Required<Pick<SiteSettings, "siteTitle" | "siteDescription" | "postPage" | "ui" | "navigation" | "footerColumns" | "footerCopyright">> = {
@@ -51,6 +59,7 @@ export const defaultSiteSettings: Required<Pick<SiteSettings, "siteTitle" | "sit
   siteDescription: "Research, insights, and the science behind building brands & websites.",
   postPage: {
     heroTitle: "Research, insights, and the science behind building brands & websites.",
+    featuredCtaLabel: "READ FULL BLOG POST",
     postsHeading: "Knowledge Is Meant to Be Shared",
     filtersLabel: "All posts",
     cardCtaLabel: "READ MORE",
@@ -67,6 +76,11 @@ export const defaultSiteSettings: Required<Pick<SiteSettings, "siteTitle" | "sit
     primaryNavigationLabel: "Primary",
     footerNavigationLabel: "Footer",
     postCategoriesLabel: "Post categories",
+    articleCategoriesLabel: "Article categories",
+    previousArticleLabel: "Previous",
+    nextArticleLabel: "Next",
+    relatedPostsTitle: "Related Posts",
+    loadMoreLabel: "Load more",
     pageNotFoundTitle: "Page not found",
     pageNotFoundDescription: "The page may have moved, or the article is not published yet.",
     backToPostsLabel: "Back to posts"
@@ -110,7 +124,9 @@ export const defaultSiteSettings: Required<Pick<SiteSettings, "siteTitle" | "sit
       ]
     }
   ],
-  footerCopyright: "© BASEMENT.STUDIO LLC 2026. ALL RIGHTS RESERVED."
+  footerCopyright: "© BASEMENT.STUDIO LLC 2026. ALL RIGHTS RESERVED.",
+  footerMembershipText: "PROUD MEMBER OF SODA",
+  footerRightsReservedText: "ALL RIGHTS RESERVED."
 };
 
 function cleanLink(link?: SiteLink | null): SiteLink | null {
@@ -142,6 +158,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       },
       "postPage": {
         "heroTitle": coalesce(postPage.heroTitle, blogPage.heroTitle, blogPage.title),
+        "featuredCtaLabel": postPage.featuredCtaLabel,
         "postsHeading": coalesce(postPage.postsHeading, blogPage.postsHeading),
         "filtersLabel": coalesce(postPage.filtersLabel, blogPage.filtersLabel),
         cardCtaLabel,
@@ -158,6 +175,11 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         primaryNavigationLabel,
         footerNavigationLabel,
         postCategoriesLabel,
+        articleCategoriesLabel,
+        previousArticleLabel,
+        nextArticleLabel,
+        relatedPostsTitle,
+        loadMoreLabel,
         pageNotFoundTitle,
         pageNotFoundDescription,
         backToPostsLabel
@@ -167,7 +189,9 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         title,
         links[] { label, href, openInNewTab }
       },
-      footerCopyright
+      footerCopyright,
+      footerMembershipText,
+      footerRightsReservedText
     }`,
     tags: ["site-settings"]
   });
@@ -196,6 +220,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       ...defaultSiteSettings.postPage,
       ...(settings?.postPage ?? {}),
       heroTitle: settings?.postPage?.heroTitle?.trim() || defaultSiteSettings.postPage.heroTitle,
+      featuredCtaLabel: settings?.postPage?.featuredCtaLabel?.trim() || defaultSiteSettings.postPage.featuredCtaLabel,
       postsHeading: settings?.postPage?.postsHeading?.trim() || defaultSiteSettings.postPage.postsHeading,
       filtersLabel: settings?.postPage?.filtersLabel?.trim() || defaultSiteSettings.postPage.filtersLabel,
       cardCtaLabel: settings?.postPage?.cardCtaLabel?.trim() || defaultSiteSettings.postPage.cardCtaLabel,
@@ -213,12 +238,19 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       primaryNavigationLabel: settings?.ui?.primaryNavigationLabel?.trim() || defaultSiteSettings.ui.primaryNavigationLabel,
       footerNavigationLabel: settings?.ui?.footerNavigationLabel?.trim() || defaultSiteSettings.ui.footerNavigationLabel,
       postCategoriesLabel: settings?.ui?.postCategoriesLabel?.trim() || defaultSiteSettings.ui.postCategoriesLabel,
+      articleCategoriesLabel: settings?.ui?.articleCategoriesLabel?.trim() || defaultSiteSettings.ui.articleCategoriesLabel,
+      previousArticleLabel: settings?.ui?.previousArticleLabel?.trim() || defaultSiteSettings.ui.previousArticleLabel,
+      nextArticleLabel: settings?.ui?.nextArticleLabel?.trim() || defaultSiteSettings.ui.nextArticleLabel,
+      relatedPostsTitle: settings?.ui?.relatedPostsTitle?.trim() || defaultSiteSettings.ui.relatedPostsTitle,
+      loadMoreLabel: settings?.ui?.loadMoreLabel?.trim() || defaultSiteSettings.ui.loadMoreLabel,
       pageNotFoundTitle: settings?.ui?.pageNotFoundTitle?.trim() || defaultSiteSettings.ui.pageNotFoundTitle,
       pageNotFoundDescription: settings?.ui?.pageNotFoundDescription?.trim() || defaultSiteSettings.ui.pageNotFoundDescription,
       backToPostsLabel: settings?.ui?.backToPostsLabel?.trim() || defaultSiteSettings.ui.backToPostsLabel
     },
     navigation: navigation.length > 0 ? navigation : defaultSiteSettings.navigation,
     footerColumns: footerColumns.length > 0 ? footerColumns : defaultSiteSettings.footerColumns,
-    footerCopyright: settings?.footerCopyright?.trim() || defaultSiteSettings.footerCopyright
+    footerCopyright: settings?.footerCopyright?.trim() || defaultSiteSettings.footerCopyright,
+    footerMembershipText: settings?.footerMembershipText?.trim() || defaultSiteSettings.footerMembershipText,
+    footerRightsReservedText: settings?.footerRightsReservedText?.trim() || defaultSiteSettings.footerRightsReservedText
   };
 }

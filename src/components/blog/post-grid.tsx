@@ -9,7 +9,7 @@ type PostGridProps = {
   dateFallback?: string;
 };
 
-export function PostGrid({ posts, ctaLabel, emptyStateTitle = "No posts found", emptyStateDescription = "Publish posts in Sanity to fill this listing.", dateFallback }: PostGridProps) {
+export function PostGrid({ posts, ctaLabel, emptyStateTitle = "", emptyStateDescription = "", dateFallback }: PostGridProps) {
   if (posts.length === 0) {
     return (
       <div className="rounded-ui border border-border bg-surface p-8">

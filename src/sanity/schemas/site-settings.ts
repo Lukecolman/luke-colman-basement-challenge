@@ -25,6 +25,7 @@ export const siteSettings = defineType({
     ],
     postPage: {
       heroTitle: "Research, insights, and the science behind building brands & websites.",
+      featuredCtaLabel: "READ FULL BLOG POST",
       postsHeading: "Knowledge Is Meant to Be Shared",
       filtersLabel: "All posts",
       cardCtaLabel: "READ MORE",
@@ -41,6 +42,11 @@ export const siteSettings = defineType({
       primaryNavigationLabel: "Primary",
       footerNavigationLabel: "Footer",
       postCategoriesLabel: "Post categories",
+      articleCategoriesLabel: "Article categories",
+      previousArticleLabel: "Previous",
+      nextArticleLabel: "Next",
+      relatedPostsTitle: "Related Posts",
+      loadMoreLabel: "Load more",
       pageNotFoundTitle: "Page not found",
       pageNotFoundDescription: "The page may have moved, or the article is not published yet.",
       backToPostsLabel: "Back to posts"
@@ -75,7 +81,9 @@ export const siteSettings = defineType({
         ]
       }
     ],
-    footerCopyright: "© BASEMENT.STUDIO LLC 2026. ALL RIGHTS RESERVED."
+    footerCopyright: "© BASEMENT.STUDIO LLC 2026. ALL RIGHTS RESERVED.",
+    footerMembershipText: "PROUD MEMBER OF SODA",
+    footerRightsReservedText: "ALL RIGHTS RESERVED."
   },
   fields: [
     defineField({ name: "siteTitle", title: "Site title", type: "string", validation: (rule) => rule.required() }),
@@ -92,6 +100,7 @@ export const siteSettings = defineType({
           rows: 2,
           validation: (rule) => rule.max(180)
         }),
+        defineField({ name: "featuredCtaLabel", title: "Featured post CTA label", type: "string", validation: (rule) => rule.max(60) }),
         defineField({
           name: "postsHeading",
           title: "Posts heading",
@@ -123,6 +132,11 @@ export const siteSettings = defineType({
         defineField({ name: "primaryNavigationLabel", title: "Primary navigation label", type: "string", validation: (rule) => rule.max(60) }),
         defineField({ name: "footerNavigationLabel", title: "Footer navigation label", type: "string", validation: (rule) => rule.max(60) }),
         defineField({ name: "postCategoriesLabel", title: "Post categories label", type: "string", validation: (rule) => rule.max(60) }),
+        defineField({ name: "articleCategoriesLabel", title: "Article categories label", type: "string", validation: (rule) => rule.max(60) }),
+        defineField({ name: "previousArticleLabel", title: "Previous article label", type: "string", validation: (rule) => rule.max(40) }),
+        defineField({ name: "nextArticleLabel", title: "Next article label", type: "string", validation: (rule) => rule.max(40) }),
+        defineField({ name: "relatedPostsTitle", title: "Related posts title", type: "string", validation: (rule) => rule.max(80) }),
+        defineField({ name: "loadMoreLabel", title: "Load more label", type: "string", validation: (rule) => rule.max(40) }),
         defineField({ name: "pageNotFoundTitle", title: "404 title", type: "string", validation: (rule) => rule.max(100) }),
         defineField({ name: "pageNotFoundDescription", title: "404 description", type: "text", rows: 2, validation: (rule) => rule.max(180) }),
         defineField({ name: "backToPostsLabel", title: "Back to posts label", type: "string", validation: (rule) => rule.max(60) })
@@ -170,6 +184,8 @@ export const siteSettings = defineType({
       ]
     }),
     defineField({ name: "footerCopyright", title: "Footer copyright", type: "string", validation: (rule) => rule.max(140) }),
+    defineField({ name: "footerMembershipText", title: "Footer membership text", type: "string", validation: (rule) => rule.max(100) }),
+    defineField({ name: "footerRightsReservedText", title: "Footer rights reserved text", type: "string", validation: (rule) => rule.max(60) }),
     seoFields
   ],
   preview: {

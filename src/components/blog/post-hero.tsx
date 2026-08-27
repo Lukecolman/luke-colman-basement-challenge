@@ -23,7 +23,7 @@ export function PostHero({ settings, featuredPost }: PostHeroProps) {
           <Container className="pt-28 md:pt-40">
             <HeroBanner
               post={featuredPost}
-              ctaLabel="READ FULL BLOG POST"
+              ctaLabel={settings.postPage?.featuredCtaLabel}
               dateFallback={settings.postPage?.dateFallback}
             />
           </Container>

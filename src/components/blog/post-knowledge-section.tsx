@@ -85,7 +85,7 @@ export function PostKnowledgeSection({ settings, categories, posts }: PostKnowle
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-black/15 opacity-0 blur-md transition-all duration-700 ease-out group-hover:left-[125%] group-hover:opacity-100 group-focus-visible:left-[125%] group-focus-visible:opacity-100"
               />
-              <span className="relative z-10">Load more</span>
+              <span className="relative z-10">{settings.ui?.loadMoreLabel}</span>
             </button>
           </div>
         ) : null}
