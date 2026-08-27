@@ -193,6 +193,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
                     key={relatedPost._id}
                     post={relatedPost}
                     ctaLabel={settings.postPage?.cardCtaLabel}
+                    ctaAccessibleLabel={settings.postPage?.cardCtaAccessibleLabel}
                     dateFallback={settings.postPage?.dateFallback}
                     priority={index === 0}
                     tone="dark"
@@ -216,6 +217,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
                     key={relatedPost._id}
                     post={relatedPost}
                     ctaLabel={settings.postPage?.cardCtaLabel}
+                    ctaAccessibleLabel={settings.postPage?.cardCtaAccessibleLabel}
                     dateFallback={settings.postPage?.dateFallback}
                     priority={index === 0}
                     tone="dark"

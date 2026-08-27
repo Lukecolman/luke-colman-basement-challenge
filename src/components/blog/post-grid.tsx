@@ -4,12 +4,13 @@ import type { PostSummary } from "@/types/blog";
 type PostGridProps = {
   posts: PostSummary[];
   ctaLabel?: string;
+  ctaAccessibleLabel?: string;
   emptyStateTitle?: string;
   emptyStateDescription?: string;
   dateFallback?: string;
 };
 
-export function PostGrid({ posts, ctaLabel, emptyStateTitle = "", emptyStateDescription = "", dateFallback }: PostGridProps) {
+export function PostGrid({ posts, ctaLabel, ctaAccessibleLabel, emptyStateTitle = "", emptyStateDescription = "", dateFallback }: PostGridProps) {
   if (posts.length === 0) {
     return (
       <div className="rounded-ui border border-border bg-surface p-8">
@@ -26,6 +27,7 @@ export function PostGrid({ posts, ctaLabel, emptyStateTitle = "", emptyStateDesc
           key={post._id}
           post={post}
           ctaLabel={ctaLabel}
+          ctaAccessibleLabel={ctaAccessibleLabel}
           dateFallback={dateFallback}
           showImage={index < 3}
           animationDelay={index * 0.1}

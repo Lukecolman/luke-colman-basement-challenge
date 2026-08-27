@@ -51,6 +51,7 @@ export default async function CategoryPage({ params }: PageProps) {
         <PostGrid
           posts={posts}
           ctaLabel={settings.postPage?.cardCtaLabel}
+          ctaAccessibleLabel={settings.postPage?.cardCtaAccessibleLabel}
           emptyStateTitle={settings.postPage?.emptyStateTitle}
           emptyStateDescription={settings.postPage?.emptyStateDescription}
           dateFallback={settings.postPage?.dateFallback}

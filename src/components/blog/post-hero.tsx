@@ -24,6 +24,7 @@ export function PostHero({ settings, featuredPost }: PostHeroProps) {
             <HeroBanner
               post={featuredPost}
               ctaLabel={settings.postPage?.featuredCtaLabel}
+              ctaAccessibleLabel={settings.postPage?.cardCtaAccessibleLabel}
               dateFallback={settings.postPage?.dateFallback}
             />
           </Container>

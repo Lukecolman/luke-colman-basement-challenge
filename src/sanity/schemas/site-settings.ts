@@ -29,6 +29,7 @@ export const siteSettings = defineType({
       postsHeading: "Knowledge Is Meant to Be Shared",
       filtersLabel: "All posts",
       cardCtaLabel: "READ MORE",
+      cardCtaAccessibleLabel: "Read more about",
       emptyStateTitle: "No posts found",
       emptyStateDescription: "Publish posts in Sanity to fill this listing.",
       articleLabel: "Article",
@@ -114,6 +115,7 @@ export const siteSettings = defineType({
           validation: (rule) => rule.max(60)
         }),
         defineField({ name: "cardCtaLabel", title: "Post card CTA label", type: "string", validation: (rule) => rule.max(40) }),
+        defineField({ name: "cardCtaAccessibleLabel", title: "Post card accessible label prefix", type: "string", description: "Shown to assistive technologies before the article title.", validation: (rule) => rule.max(80) }),
         defineField({ name: "emptyStateTitle", title: "Empty state title", type: "string", validation: (rule) => rule.max(100) }),
         defineField({ name: "emptyStateDescription", title: "Empty state description", type: "text", rows: 2, validation: (rule) => rule.max(180) }),
         defineField({ name: "articleLabel", title: "Article fallback label", type: "string", validation: (rule) => rule.max(40) }),

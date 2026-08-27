@@ -11,10 +11,11 @@ import type { PostSummary } from "@/types/blog";
 type FeaturedArticleProps = {
   post: PostSummary;
   ctaLabel?: string;
+  ctaAccessibleLabel?: string;
   dateFallback?: string;
 };
 
-export function FeaturedArticle({ post, ctaLabel = "", dateFallback = "" }: FeaturedArticleProps) {
+export function FeaturedArticle({ post, ctaLabel = "", ctaAccessibleLabel = "Read more about", dateFallback = "" }: FeaturedArticleProps) {
   const imageUrl = urlForImage(post.featuredImage)?.width(1200).auto("format").url();
   const postHref = `/blog/${post.slug}`;
   const postCategories = post.categories?.length ? post.categories : post.category ? [post.category] : [];
@@ -85,6 +86,7 @@ export function FeaturedArticle({ post, ctaLabel = "", dateFallback = "" }: Feat
 
             <Link
               href={postHref}
+              aria-label={`${ctaAccessibleLabel} ${post.title}`}
               className="featured-article__cta inline-flex w-fit max-w-full items-center rounded-[4px] bg-basement-orange px-2 py-1 font-mono text-geist-mono-14 font-medium uppercase leading-[0.9] text-black outline-none transition-colors duration-[var(--duration-fast)] hover:bg-basement-light-grey focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basement-orange motion-reduce:transition-none"
             >
               <span className="break-words">{ctaLabel}</span>

@@ -28,6 +28,7 @@ export type SiteSettings = {
     postsHeading?: string;
     filtersLabel?: string;
     cardCtaLabel?: string;
+    cardCtaAccessibleLabel?: string;
     emptyStateTitle?: string;
     emptyStateDescription?: string;
     articleLabel?: string;
@@ -79,6 +80,7 @@ export const defaultSiteSettings: Required<
     postsHeading: "Knowledge Is Meant to Be Shared",
     filtersLabel: "All posts",
     cardCtaLabel: "READ MORE",
+    cardCtaAccessibleLabel: "Read more about",
     emptyStateTitle: "No posts found",
     emptyStateDescription: "Publish posts in Sanity to fill this listing.",
     articleLabel: "Article",
@@ -183,6 +185,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         "postsHeading": coalesce(postPage.postsHeading, blogPage.postsHeading),
         "filtersLabel": coalesce(postPage.filtersLabel, blogPage.filtersLabel),
         cardCtaLabel,
+        cardCtaAccessibleLabel,
         emptyStateTitle,
         emptyStateDescription,
         articleLabel,
@@ -248,6 +251,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       postsHeading: settings?.postPage?.postsHeading?.trim() || defaultSiteSettings.postPage.postsHeading,
       filtersLabel: settings?.postPage?.filtersLabel?.trim() || defaultSiteSettings.postPage.filtersLabel,
       cardCtaLabel: settings?.postPage?.cardCtaLabel?.trim() || defaultSiteSettings.postPage.cardCtaLabel,
+      cardCtaAccessibleLabel: settings?.postPage?.cardCtaAccessibleLabel?.trim() || defaultSiteSettings.postPage.cardCtaAccessibleLabel,
       emptyStateTitle: settings?.postPage?.emptyStateTitle?.trim() || defaultSiteSettings.postPage.emptyStateTitle,
       emptyStateDescription: settings?.postPage?.emptyStateDescription?.trim() || defaultSiteSettings.postPage.emptyStateDescription,
       articleLabel: settings?.postPage?.articleLabel?.trim() || defaultSiteSettings.postPage.articleLabel,

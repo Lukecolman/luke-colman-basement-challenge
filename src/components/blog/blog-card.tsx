@@ -13,6 +13,7 @@ type BlogCardProps = {
   post: PostSummary;
   priority?: boolean;
   ctaLabel?: string;
+  ctaAccessibleLabel?: string;
   dateFallback?: string;
   showImage?: boolean;
   tone?: "light" | "dark";
@@ -24,6 +25,7 @@ export function BlogCard({
   post,
   priority = false,
   ctaLabel = "",
+  ctaAccessibleLabel = "Read more about",
   dateFallback = "",
   showImage = true,
   tone = "light",
@@ -156,7 +158,7 @@ export function BlogCard({
       <div className="mt-auto">
         <Link
           href={postHref}
-          aria-label={`Read more about ${post.title}`}
+          aria-label={`${ctaAccessibleLabel} ${post.title}`}
           className={cn(
             "inline-flex items-center self-start rounded px-2 py-1 uppercase leading-[0.9] outline-none transition-colors duration-200 focus-visible:rounded-ui focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basement-orange",
             isDark

@@ -52,6 +52,7 @@ export function PostKnowledgeSection({ settings, categories, posts }: PostKnowle
         <PostGrid
           posts={visiblePosts}
           ctaLabel={postPage?.cardCtaLabel}
+          ctaAccessibleLabel={postPage?.cardCtaAccessibleLabel}
           emptyStateTitle={postPage?.emptyStateTitle}
           emptyStateDescription={postPage?.emptyStateDescription}
           dateFallback={postPage?.dateFallback}
