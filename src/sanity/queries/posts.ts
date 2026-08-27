@@ -54,12 +54,17 @@ export async function getFeaturedPosts() {
 }
 
 export async function getPostSlugs() {
-  const slugs = await sanityFetch<string[]>({
-    query: `*[_type == "post" && defined(slug.current)].slug.current`,
-    tags: ["post"]
-  });
+  try {
+    const slugs = await sanityFetch<string[]>({
+      query: `*[_type == "post" && defined(slug.current)].slug.current`,
+      tags: ["post"]
+    });
 
-  return slugs ?? [];
+    return slugs ?? [];
+  } catch (error) {
+    console.error("[Sanity] Failed to fetch post slugs; generating a sitemap without post URLs.", error);
+    return [];
+  }
 }
 
 export async function getPostBySlug(slug: string) {

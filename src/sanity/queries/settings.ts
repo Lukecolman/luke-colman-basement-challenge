@@ -164,8 +164,11 @@ function sortLinks(links: SiteLink[]) {
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {
-  const settings = await sanityFetch<SiteSettings>({
-    query: `*[_type == "siteSettings"][0] {
+  let settings: SiteSettings | null = null;
+
+  try {
+    settings = await sanityFetch<SiteSettings>({
+      query: `*[_type == "siteSettings"][0] {
       siteTitle,
       siteDescription,
       seo {
@@ -210,9 +213,12 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       footerCopyright,
       footerMembershipText,
       footerRightsReservedText
-    }`,
-    tags: ["site-settings"]
-  });
+      }`,
+      tags: ["site-settings"]
+    });
+  } catch (error) {
+    console.error("[Sanity] Failed to fetch site settings; using local defaults.", error);
+  }
 
   const navigation = sortLinks(
     (settings?.navigation ?? [])

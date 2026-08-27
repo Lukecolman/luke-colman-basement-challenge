@@ -10377,8 +10377,6 @@ snapshots:
 
   globrex@0.1.2: {}
 
-  gsap@3.13.0: {}
-
   gopd@1.2.0: {}
 
   graceful-fs@4.2.11: {}
