@@ -1,5 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useLayoutEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/utils";
 import { urlForImage } from "@/sanity/image";
 import type { PostSummary } from "@/types/blog";
@@ -10,6 +15,9 @@ type BlogCardProps = {
   ctaLabel?: string;
   dateFallback?: string;
   showImage?: boolean;
+  tone?: "light" | "dark";
+  className?: string;
+  animationDelay?: number;
 };
 
 export function BlogCard({
@@ -17,16 +25,75 @@ export function BlogCard({
   priority = false,
   ctaLabel = "READ MORE",
   dateFallback = "Basement",
-  showImage = true
+  showImage = true,
+  tone = "light",
+  className,
+  animationDelay = 0
 }: BlogCardProps) {
+  const cardRef = useRef<HTMLElement>(null);
   const imageUrl = urlForImage(post.featuredImage)?.width(900).height(320).auto("format").url();
-  const categoryTitle = post.category?.title;
+  const postHref = `/blog/${post.slug}`;
+  const postCategories = post.categories?.length ? post.categories : post.category ? [post.category] : [];
+  const isDark = tone === "dark";
+
+  useLayoutEffect(() => {
+    const card = cardRef.current;
+
+    if (!card || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let observer: IntersectionObserver | null = null;
+    let hasRevealed = false;
+    const context = gsap.context(() => {
+      const reveal = () => {
+        if (hasRevealed) return;
+        hasRevealed = true;
+        observer?.disconnect();
+        gsap.to(card, {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          delay: animationDelay,
+        });
+      };
+
+      gsap.set(card, { opacity: 0, y: 32 });
+
+      if (typeof IntersectionObserver === "undefined") {
+        reveal();
+        return;
+      }
+
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry?.isIntersecting) reveal();
+        },
+        { rootMargin: "0px 0px -10% 0px", threshold: 0.01 },
+      );
+      observer.observe(card);
+    }, cardRef);
+
+    return () => {
+      observer?.disconnect();
+      context.revert();
+    };
+  }, []);
 
   return (
-    <article className="group relative flex h-[400px] max-h-[436px] w-full max-w-[400px] flex-col gap-6 overflow-hidden rounded-2xl border border-white/80 bg-basement-light-grey p-6">
+    <article
+      ref={cardRef}
+      className={cn(
+        "group relative flex w-full max-w-[400px] md:max-w-[352px] flex-col gap-6 overflow-hidden border p-6",
+        showImage ? "h-[400px] max-h-[436px]" : "h-[250px] max-h-[250px]",
+        isDark
+          ? "rounded-[22px] border-white/10 bg-[#111111] text-basement-light-grey shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_24px_50px_rgba(0,0,0,0.3)]"
+          : "rounded-2xl border-white/80 bg-[#EBEBEB] text-black",
+        className
+      )}
+    >
       <div className="flex flex-col gap-6">
         {showImage ? (
-          <div className="relative h-[137px] w-full overflow-hidden rounded-md bg-black">
+          <div className={cn("relative h-[137px] w-full overflow-hidden rounded-md bg-black", isDark && "rounded-[8px]")}>
             {imageUrl ? (
               <Image
                 src={imageUrl}
@@ -57,34 +124,50 @@ export function BlogCard({
 
         <div className="flex flex-col items-start gap-4">
           {post.publishedAt ? (
-            <time dateTime={post.publishedAt} className="block text-geist-13 font-semibold text-[#6f6f6f]">
+            <time
+              dateTime={post.publishedAt}
+              className={`block text-geist-13 font-semibold ${isDark ? "text-[#666666]" : "text-[#6f6f6f]"}`}
+            >
               {formatDate(post.publishedAt)}
             </time>
           ) : null}
 
-          <h2 className="text-geist-24 font-semibold text-black">
-            <Link
-              href={`/blog/${post.slug}`}
-              aria-label={`Read more about ${post.title}`}
-              className="outline-none focus-visible:rounded-ui focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basement-orange"
-            >
-              <span className="absolute inset-0 z-10" aria-hidden="true" />
-              {post.title}
-            </Link>
+          <h2 className={`text-geist-24 font-semibold ${isDark ? "text-basement-light-grey" : "text-black"}`}>
+            <span className="block text-geist-24 font-semibold leading-[1.1]">{post.title}</span>
           </h2>
 
-          {categoryTitle ? (
-            <div className="flex flex-wrap items-start gap-1 text-geist-13 font-semibold text-[#c9c9c9]">
-              <span className="inline-flex items-center justify-center bg-basement-light-grey px-0.5 text-basement-medium-grey">{categoryTitle}</span>
+          {postCategories.length ? (
+            <div className={`flex flex-wrap items-start gap-1 text-geist-13 font-semibold ${isDark ? "text-basement-light-grey" : "text-[#c9c9c9]"}`}>
+              {postCategories.map((category) => (
+                <span
+                  key={category.slug}
+                  className={`inline-flex items-center justify-center px-0.5 text-geist-13 font-semibold ${
+                    isDark ? "bg-[#2E2E2E] text-basement-light-grey" : "bg-basement-light-grey text-basement-medium-grey"
+                  }`}
+                >
+                  {category.title}
+                </span>
+              ))}
             </div>
           ) : null}
         </div>
       </div>
 
       <div className="mt-auto">
-        <span className="inline-flex items-center self-start rounded bg-basement-light-grey px-2 py-1 font-mono text-geist-mono-14 font-medium uppercase leading-[0.9] text-black transition-colors duration-200 group-hover:text-basement-grey">
-          <span aria-hidden="true">{ctaLabel}</span>
-        </span>
+        <Link
+          href={postHref}
+          aria-label={`Read more about ${post.title}`}
+          className={cn(
+            "inline-flex items-center self-start rounded px-2 py-1 uppercase leading-[0.9] outline-none transition-colors duration-200 focus-visible:rounded-ui focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basement-orange",
+            isDark
+              ? "bg-basement-orange text-black hover:bg-basement-light-grey"
+              : "bg-basement-light-grey text-black hover:bg-basement-orange"
+          )}
+        >
+          <span aria-hidden="true" className="font-mono text-geist-mono-14 font-medium">
+            {ctaLabel}
+          </span>
+        </Link>
       </div>
     </article>
   );

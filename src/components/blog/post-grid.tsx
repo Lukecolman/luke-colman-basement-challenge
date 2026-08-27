@@ -20,7 +20,7 @@ export function PostGrid({ posts, ctaLabel, emptyStateTitle = "No posts found", 
   }
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,400px),436px))] justify-start gap-5">
+    <div className="grid w-full grid-cols-1 justify-items-center gap-3 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
       {posts.map((post, index) => (
         <BlogCard
           key={post._id}
@@ -28,6 +28,7 @@ export function PostGrid({ posts, ctaLabel, emptyStateTitle = "No posts found", 
           ctaLabel={ctaLabel}
           dateFallback={dateFallback}
           showImage={index < 3}
+          animationDelay={index * 0.1}
         />
       ))}
     </div>
