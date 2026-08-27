@@ -12,12 +12,14 @@ import type { SiteLink } from "@/sanity/queries/settings";
 
 type HeaderProps = {
   siteTitle: string;
+  logoSrc: string;
+  logoAlt: string;
   navigation: SiteLink[];
   navigationLabel?: string;
   mobileLabels?: { open: string; close: string; menu: string };
 };
 
-export function Header({ siteTitle, navigation, navigationLabel = "Primary", mobileLabels }: HeaderProps) {
+export function Header({ siteTitle, logoSrc, logoAlt, navigation, navigationLabel = "Primary", mobileLabels }: HeaderProps) {
   const contactLink = navigation.find((item) => item.label.trim().toLowerCase() === "contact us");
   const primaryNavigation = navigation.filter((item) => item !== contactLink);
   const pathname = usePathname();
@@ -76,7 +78,7 @@ export function Header({ siteTitle, navigation, navigationLabel = "Primary", mob
             aria-label={siteTitle}
             className="z-[99999] shrink-0 transition-opacity duration-200 hover:opacity-80 focus-visible:opacity-80"
           >
-            <Image src="/assets/basement.svg" alt={siteTitle} width={107} height={15} priority />
+            <Image src={logoSrc} alt={logoAlt} width={107} height={15} priority />
           </Link>
           <nav aria-label={navigationLabel} className="hidden min-w-0 flex-1 justify-center md:flex">
             <LinkList
@@ -117,7 +119,7 @@ export function Header({ siteTitle, navigation, navigationLabel = "Primary", mob
               <span className="relative z-10">{contactLink.label}</span>
             </Link>
           ) : null}
-          <MobileNav items={navigation} navigationLabel={navigationLabel} labels={mobileLabels} />
+          <MobileNav items={navigation} logoSrc={logoSrc} logoAlt={logoAlt} navigationLabel={navigationLabel} labels={mobileLabels} />
         </div>
       </Container>
     </motion.header>

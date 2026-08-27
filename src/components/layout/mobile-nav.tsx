@@ -11,6 +11,8 @@ import type { SiteLink } from "@/sanity/queries/settings";
 
 type MobileNavProps = {
   items: SiteLink[];
+  logoSrc: string;
+  logoAlt: string;
   navigationLabel?: string;
   labels?: { open: string; close: string; menu: string };
 };
@@ -48,7 +50,7 @@ function ContactButton({ link }: { link: SiteLink }) {
   );
 }
 
-export function MobileNav({ items, navigationLabel = "Primary", labels = { open: "Open navigation", close: "Close navigation", menu: "Menu" } }: MobileNavProps) {
+export function MobileNav({ items, logoSrc, logoAlt, navigationLabel = "Primary", labels = { open: "Open navigation", close: "Close navigation", menu: "Menu" } }: MobileNavProps) {
   const [open, setOpen] = useState(false);
   const openButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -96,8 +98,8 @@ export function MobileNav({ items, navigationLabel = "Primary", labels = { open:
           {open ? (
             <motion.div ref={dialogRef} id="mobile-navigation" role="dialog" aria-modal="true" aria-label={navigationLabel} className="fixed inset-0 z-[9999] flex h-full flex-col bg-black text-[#E6E6E6]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={reduceMotion ? { duration: 0 } : { duration: 0.25 }}>
               <div className="relative z-[10000] flex items-center justify-between px-[28px] pt-[23px] sm:px-[40px]">
-                <Link href="/" aria-label="Basement" onClick={() => setOpen(false)}>
-                  <Image src="/assets/basement.svg" alt="Basement" width={107} height={15} priority />
+                <Link href="/" aria-label={logoAlt} onClick={() => setOpen(false)}>
+                  <Image src={logoSrc} alt={logoAlt} width={107} height={15} priority />
                 </Link>
                 <IconButton ref={closeButtonRef} aria-label={labels.close} className="size-10 rounded-none border-0 bg-transparent p-0 text-[#E6E6E6] hover:bg-transparent hover:text-basement-orange" onClick={() => setOpen(false)}>
                   <XIcon />

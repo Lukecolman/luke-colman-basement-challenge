@@ -1,4 +1,5 @@
 import { sanityFetch } from "@/sanity/client";
+import type { SanityImage } from "@/types/blog";
 
 export type SiteLink = {
   label: string;
@@ -18,7 +19,9 @@ export type SiteSettings = {
   seo?: {
     title?: string;
     description?: string;
+    image?: SanityImage;
   };
+  logo?: SanityImage;
   postPage?: {
     heroTitle?: string;
     featuredCtaLabel?: string;
@@ -154,8 +157,10 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       siteDescription,
       seo {
         title,
-        description
+        description,
+        image
       },
+      logo,
       "postPage": {
         "heroTitle": coalesce(postPage.heroTitle, blogPage.heroTitle, blogPage.title),
         "featuredCtaLabel": postPage.featuredCtaLabel,

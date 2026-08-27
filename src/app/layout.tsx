@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { siteConfig } from "@/lib/constants";
 import { getSiteSettings } from "@/sanity/queries/settings";
+import { urlForImage } from "@/sanity/image";
 import { ConsoleBanner } from "@/components/layout/console-banner";
 import "@/styles/globals.css";
 
@@ -29,6 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
   const title = settings.seo?.title?.trim() || settings.siteTitle || siteConfig.name;
   const description = settings.seo?.description?.trim() || settings.siteDescription || siteConfig.description;
+  const socialImage = urlForImage(settings.seo?.image)?.width(1200).height(630).auto("format").url() || defaultOgImage.url;
 
   return {
     metadataBase: new URL(siteConfig.url),
@@ -43,13 +45,13 @@ export async function generateMetadata(): Promise<Metadata> {
       url: siteConfig.url,
       siteName: settings.siteTitle || title,
       type: "website",
-      images: [defaultOgImage]
+      images: [{ ...defaultOgImage, url: socialImage }]
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [defaultOgImage.url]
+      images: [socialImage]
     }
   };
 }
