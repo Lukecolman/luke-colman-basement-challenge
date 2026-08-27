@@ -10,9 +10,12 @@ const config: Config = {
       },
       fontSize: {
         "geist-76": ["4.75rem", { lineHeight: "0.9", letterSpacing: "-0.04em" }],
+        "geist-40": ["2.5rem", { lineHeight: "0.95", letterSpacing: "-0.04em" }],
         "geist-38": ["2.375rem", { lineHeight: "0.95", letterSpacing: "-0.04em" }],
         "geist-24": ["1.5rem", { lineHeight: "1.1", letterSpacing: "-0.03em" }],
+        "geist-20": ["1.25rem", { lineHeight: "1.2", letterSpacing: "0" }],
         "geist-16": ["1rem", { lineHeight: "1.3", letterSpacing: "0" }],
+        "geist-14": ["0.875rem", { lineHeight: "1.4", letterSpacing: "0" }],
         "geist-mono-14": ["0.875rem", { lineHeight: "1.4", letterSpacing: "-0.01em" }],
         "geist-13": ["0.8125rem", { lineHeight: "1", letterSpacing: "0" }]
       },

@@ -23,6 +23,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      gsap:
+        specifier: ^3.13.0
+        version: 3.13.0
       lucide-react:
         specifier: ^0.468.0
         version: 0.468.0(react@19.2.8)
@@ -10353,6 +10356,9 @@ snapshots:
       min-document: 2.19.2
       process: 0.11.10
 
+  gsap@3.13.0:
+    resolution: {integrity: sha512-QL7MJ2WMjm1PHWsoFrAQH/J8wUeqZvMtHO58qdekHpCfhvhSL4gSiz6vJf5EeMP0LOn3ZCprL2ki/gjED8ghVw==}
+
   globals@14.0.0: {}
 
   globalthis@1.0.4:
@@ -10370,6 +10376,8 @@ snapshots:
       slash: 3.0.0
 
   globrex@0.1.2: {}
+
+  gsap@3.13.0: {}
 
   gopd@1.2.0: {}
 
