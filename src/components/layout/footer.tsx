@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useMotionTemplate, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { useRef, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { Container } from "@/components/layout/container";
 import { cn } from "@/lib/utils";
 import type { FooterColumn } from "@/sanity/queries/settings";
@@ -119,11 +119,19 @@ function FooterItemReveal({
   reduceMotion: boolean;
   start: number;
 }) {
+  const [isFocused, setIsFocused] = useState(false);
   const opacity = useTransform(progress, [start, start + 0.18], [0, 1]);
   const y = useTransform(progress, [start, start + 0.18], [18, 0]);
   const Component = as === "li" ? motion.li : motion.div;
 
-  return <Component style={reduceMotion ? undefined : { opacity, y }}>{children}</Component>;
+  return (
+    <Component
+      onFocusCapture={() => setIsFocused(true)}
+      style={reduceMotion || isFocused ? undefined : { opacity, y }}
+    >
+      {children}
+    </Component>
+  );
 }
 
 function FooterWordmarkShimmer({ progress, reduceMotion }: { progress: MotionValue<number>; reduceMotion: boolean }) {
